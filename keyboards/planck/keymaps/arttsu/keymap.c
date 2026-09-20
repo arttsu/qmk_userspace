@@ -151,19 +151,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum combos {
     UI_UP,
+    IO_PGUP,
+    OP_HOME,
+
     MCOMM_DOWN,
-    UO_PGUP,
-    MDOT_PGDN,
+    COMMDOT_PGDN,
+    DOTSLSH_END,
 };
 
-const uint16_t PROGMEM ui_combo[]    = {KC_U, KC_I,    COMBO_END};
-const uint16_t PROGMEM mcomm_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM uo_combo[]    = {KC_U, KC_O,    COMBO_END};
-const uint16_t PROGMEM mdot_combo[]  = {KC_M, KC_DOT,  COMBO_END};
+const uint16_t PROGMEM ui_combo[]       = {KC_U,    KC_I,    COMBO_END};
+const uint16_t PROGMEM io_combo[]       = {KC_I,    KC_O,    COMBO_END};
+const uint16_t PROGMEM op_combo[]       = {KC_O,    KC_P,    COMBO_END};
+
+const uint16_t PROGMEM mcomm_combo[]    = {KC_M,    KC_COMM, COMBO_END};
+const uint16_t PROGMEM commdot_combo[]  = {KC_COMM, KC_DOT,  COMBO_END};
+const uint16_t PROGMEM dotslsh_combo[]  = {KC_DOT,  KC_SLSH, COMBO_END};
 
 combo_t key_combos[] = {
-    [UI_UP]      = COMBO(ui_combo,    KC_UP),
-    [MCOMM_DOWN] = COMBO(mcomm_combo, KC_DOWN),
-    [UO_PGUP]    = COMBO(uo_combo,    KC_PGUP),
-    [MDOT_PGDN]  = COMBO(mdot_combo,  KC_PGDN),
+    [UI_UP]        = COMBO(ui_combo,      KC_UP),
+    [IO_PGUP]      = COMBO(io_combo,      KC_PGUP),
+    [OP_HOME]      = COMBO(op_combo,      KC_HOME),
+
+    [MCOMM_DOWN]   = COMBO(mcomm_combo,   KC_DOWN),
+    [COMMDOT_PGDN] = COMBO(commdot_combo, KC_PGDN),
+    [DOTSLSH_END]  = COMBO(dotslsh_combo, KC_END),
 };
