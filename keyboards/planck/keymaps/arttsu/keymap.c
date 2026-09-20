@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
         KC_ESC,     HRM_A,    HRM_S,    HRM_D,    HRM_F,    KC_G,     KC_H,     HRM_J,    HRM_K,    HRM_L,    HRM_SCLN, KC_QUOT,
         KC_LSFT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_ENT,
-        MO(_MEDIA), KC_LCTL,  KC_LGUI,  KC_LALT,  SPC_NUM,            SPC_SYM,            KC_RALT,  KC_PSCR,  KC_INS,   KC_DEL
+        MO(_MEDIA), KC_LCTL,  KC_LGUI,  KC_LALT,  SPC_NUM,            SPC_SYM,            KC_RALT,  KC_PSCR,  KC_LEFT,  KC_RIGHT
     ),
 
 
@@ -179,9 +179,6 @@ const uint16_t PROGMEM mcomm_combo[]   = {KC_M,    KC_COMM, COMBO_END};
 const uint16_t PROGMEM commdot_combo[] = {KC_COMM, KC_DOT,  COMBO_END};
 const uint16_t PROGMEM dotslsh_combo[] = {KC_DOT,  KC_SLSH, COMBO_END};
 
-const uint16_t PROGMEM ty_combo[]      = {KC_T,    KC_Y,    COMBO_END};
-const uint16_t PROGMEM yu_combo[]      = {KC_Y,    KC_U,    COMBO_END};
-
 const uint16_t PROGMEM cv_combo[]      = {KC_C,    KC_V,    COMBO_END};
 
 
@@ -193,9 +190,6 @@ combo_t key_combos[] = {
     [MCOMM_DOWN]   = COMBO(mcomm_combo,   KC_DOWN),
     [COMMDOT_PGDN] = COMBO(commdot_combo, KC_PGDN),
     [DOTSLSH_END]  = COMBO(dotslsh_combo, KC_END),
-
-    [TY_LEFT]      = COMBO(ty_combo,      KC_LEFT),
-    [YU_RIGHT]     = COMBO(yu_combo,      KC_RIGHT),
 
     [CV_F19]       = COMBO(cv_combo,      KC_F19),
 };
