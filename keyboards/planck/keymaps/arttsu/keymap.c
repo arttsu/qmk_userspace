@@ -6,8 +6,8 @@
  * _BASE   - Main typing layer with home-row mods
  * _NUM    - Function keys + numbers
  * _SYM    - Symbols
- * _MEDIA
- * _SYS    - Numpad + firmware/system controls
+ * _MEDIA  - Volume + playback controls
+ * _SYS    - Firmware/system controls
  * _PLAIN  - Plain QWERTY fallback layer
  */
 enum layer_names {
@@ -18,6 +18,7 @@ enum layer_names {
     _SYS,
     _PLAIN,
 };
+
 
 /*
  * Home-row mods
@@ -41,6 +42,8 @@ enum layer_names {
  *
  * Tap  -> Space
  * Hold -> layer
+ *
+ * Holding both SPC_NUM and SPC_SYM activates _SYS.
  */
 #define SPC_NUM LT(_NUM, KC_SPC)
 #define SPC_SYM LT(_SYM, KC_SPC)
@@ -76,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F13,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F16,   KC_ASTR,  KC_7,     KC_8,     KC_9,     KC_SLSH,  XXXXXXX,
         KC_F14,   KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F17,   KC_MINS,  KC_4,     KC_5,     KC_6,     KC_0,     KC_COMM,
         KC_F15,   KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_F18,   KC_PLUS,  KC_1,     KC_2,     KC_3,     KC_DOT,   XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            MO(_SYS),           XXXXXXX,  XXXXXXX,  XXXXXXX,  CW_TOGG
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,            _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  CW_TOGG
     ),
 
 
@@ -87,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LBRC,  KC_RBRC,  XXXXXXX,
         XXXXXXX,  KC_PLUS,  KC_EQL,   KC_UNDS,  KC_MINS,  XXXXXXX,  XXXXXXX,  KC_LPRN,  KC_RPRN,  KC_LCBR,  KC_RCBR,  XXXXXXX,
         XXXXXXX,  KC_LT,    KC_GT,    KC_PIPE,  KC_BSLS,  XXXXXXX,  XXXXXXX,  KC_GRV,   KC_COMM,  KC_DOT,   KC_SLSH,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MO(_SYS),           XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,            _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     ),
 
 
@@ -104,6 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
      * SYS
+     *
+     * Activated by holding both thumb layer keys:
+     * _NUM + _SYM -> _SYS
      */
     [_SYS] = LAYOUT_planck_2x2u(
         QK_BOOT,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -115,6 +121,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
      * PLAIN
+     *
+     * Intentionally boring:
+     * - no home-row mods
+     * - no layer-tap thumb keys
+     * - no combos
+     *
+     * Bottom-left returns to _BASE.
      */
     [_PLAIN] = LAYOUT_planck_2x2u(
         KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
@@ -125,6 +138,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+/*
+ * Tri-layer
+ *
+ * Holding both thumb layer keys activates _SYS,
+ * regardless of which Space key was pressed first.
+ */
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _NUM, _SYM, _SYS);
+}
+
+
+/*
+ * Combos
+ *
+ * These are enabled only while _BASE is the active layer.
+ */
 enum combos {
     UI_UP,
     IO_PGUP,
@@ -137,21 +167,23 @@ enum combos {
     TY_LEFT,
     YU_RIGHT,
 
-    CV_F19
+    CV_F19,
 };
 
-const uint16_t PROGMEM ui_combo[]       = {KC_U,    KC_I,    COMBO_END};
-const uint16_t PROGMEM io_combo[]       = {KC_I,    KC_O,    COMBO_END};
-const uint16_t PROGMEM op_combo[]       = {KC_O,    KC_P,    COMBO_END};
 
-const uint16_t PROGMEM mcomm_combo[]    = {KC_M,    KC_COMM, COMBO_END};
-const uint16_t PROGMEM commdot_combo[]  = {KC_COMM, KC_DOT,  COMBO_END};
-const uint16_t PROGMEM dotslsh_combo[]  = {KC_DOT,  KC_SLSH, COMBO_END};
+const uint16_t PROGMEM ui_combo[]      = {KC_U,    KC_I,    COMBO_END};
+const uint16_t PROGMEM io_combo[]      = {KC_I,    KC_O,    COMBO_END};
+const uint16_t PROGMEM op_combo[]      = {KC_O,    KC_P,    COMBO_END};
 
-const uint16_t PROGMEM ty_combo[]       = {KC_T,    KC_Y,    COMBO_END};
-const uint16_t PROGMEM yu_combo[]       = {KC_Y,    KC_U,    COMBO_END};
+const uint16_t PROGMEM mcomm_combo[]   = {KC_M,    KC_COMM, COMBO_END};
+const uint16_t PROGMEM commdot_combo[] = {KC_COMM, KC_DOT,  COMBO_END};
+const uint16_t PROGMEM dotslsh_combo[] = {KC_DOT,  KC_SLSH, COMBO_END};
 
-const uint16_t PROGMEM cv_combo[]       = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM ty_combo[]      = {KC_T,    KC_Y,    COMBO_END};
+const uint16_t PROGMEM yu_combo[]      = {KC_Y,    KC_U,    COMBO_END};
+
+const uint16_t PROGMEM cv_combo[]      = {KC_C,    KC_V,    COMBO_END};
+
 
 combo_t key_combos[] = {
     [UI_UP]        = COMBO(ui_combo,      KC_UP),
@@ -167,3 +199,18 @@ combo_t key_combos[] = {
 
     [CV_F19]       = COMBO(cv_combo,      KC_F19),
 };
+
+
+/*
+ * Only allow combos on _BASE.
+ *
+ * In particular, _PLAIN stays completely plain and predictable.
+ */
+bool combo_should_trigger(
+    uint16_t combo_index,
+    combo_t *combo,
+    uint16_t keycode,
+    keyrecord_t *record
+) {
+    return get_highest_layer(layer_state | default_layer_state) == _BASE;
+}
