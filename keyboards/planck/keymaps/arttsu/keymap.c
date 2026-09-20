@@ -76,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * NUM
      */
     [_NUM] = LAYOUT_planck_2x2u(
-        KC_F13,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F20,   KC_ASTR,  KC_7,     KC_8,     KC_9,     KC_SLSH,  XXXXXXX,
-        KC_F14,   KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F21,   KC_MINS,  KC_4,     KC_5,     KC_6,     KC_0,     KC_COMM,
-        KC_F15,   KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_F22,   KC_PLUS,  KC_1,     KC_2,     KC_3,     KC_DOT,   XXXXXXX,
-        KC_F16,   KC_F17,   KC_F18,   KC_F19,   _______,            MO(_SYS),           XXXXXXX,  XXXXXXX,  XXXXXXX,  CW_TOGG
+        KC_F13,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F16,   KC_ASTR,  KC_7,     KC_8,     KC_9,     KC_SLSH,  XXXXXXX,
+        KC_F14,   KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F17,   KC_MINS,  KC_4,     KC_5,     KC_6,     KC_0,     KC_COMM,
+        KC_F15,   KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_F18,   KC_PLUS,  KC_1,     KC_2,     KC_3,     KC_DOT,   XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,            MO(_SYS),           XXXXXXX,  XXXXXXX,  XXXXXXX,  CW_TOGG
     ),
 
 
