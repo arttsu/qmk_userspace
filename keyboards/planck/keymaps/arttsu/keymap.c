@@ -6,7 +6,7 @@
  * _BASE   - Main typing layer with home-row mods
  * _NUM    - Function keys + numbers
  * _SYM    - Symbols
- * _NAV    - Navigation
+ * _MEDIA
  * _SYS    - Numpad + firmware/system controls
  * _PLAIN  - Plain QWERTY fallback layer
  * _RETURN - Return from _PLAIN to _BASE
@@ -15,7 +15,7 @@ enum layer_names {
     _BASE,
     _NUM,
     _SYM,
-    _NAV,
+    _MEDIA,
     _SYS,
     _PLAIN,
     _RETURN
@@ -60,14 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |Shift |  Z   |  X   |  C   |  V   |  B   |  N   |  M   |  ,   |  .   |  /   |Enter |
      * |------+------+------+------+-------------+-------------+------+------+------+------|
-     * | Nav  | Ctrl | GUI  | Alt  |  Space/Num  |  Space/Sym  | RAlt |PrtSc | Ins  | Del  |
+     * |Media | Ctrl | GUI  | Alt  |  Space/Num  |  Space/Sym  | RAlt |PrtSc | Ins  | Del  |
      * `-----------------------------------------------------------------------------------'
      */
     [_BASE] = LAYOUT_planck_2x2u(
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-        KC_ESC,   HRM_A,    HRM_S,    HRM_D,    HRM_F,    KC_G,     KC_H,     HRM_J,    HRM_K,    HRM_L,    HRM_SCLN, KC_QUOT,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_ENT,
-        MO(_NAV), KC_LCTL,  KC_LGUI,  KC_LALT,  SPC_NUM,            SPC_SYM,            KC_RALT,  KC_PSCR,  KC_INS,   KC_DEL
+        KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+        KC_ESC,     HRM_A,    HRM_S,    HRM_D,    HRM_F,    KC_G,     KC_H,     HRM_J,    HRM_K,    HRM_L,    HRM_SCLN, KC_QUOT,
+        KC_LSFT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_ENT,
+        MO(_MEDIA), KC_LCTL,  KC_LGUI,  KC_LALT,  SPC_NUM,            SPC_SYM,            KC_RALT,  KC_PSCR,  KC_INS,   KC_DEL
     ),
 
 
@@ -94,12 +94,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     /*
-     * NAV
+     * MEDIA
      */
-    [_NAV] = LAYOUT_planck_2x2u(
+    [_MEDIA] = LAYOUT_planck_2x2u(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MPRV,  KC_MNXT,  KC_MPLY,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXXXXXX,  XXXXXXX,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   XXXXXXX,  XXXXXXX,
         _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     ),
 
@@ -157,6 +157,9 @@ enum combos {
     MCOMM_DOWN,
     COMMDOT_PGDN,
     DOTSLSH_END,
+
+    HJ_LEFT,
+    JK_RIGHT,
 };
 
 const uint16_t PROGMEM ui_combo[]       = {KC_U,    KC_I,    COMBO_END};
@@ -167,6 +170,14 @@ const uint16_t PROGMEM mcomm_combo[]    = {KC_M,    KC_COMM, COMBO_END};
 const uint16_t PROGMEM commdot_combo[]  = {KC_COMM, KC_DOT,  COMBO_END};
 const uint16_t PROGMEM dotslsh_combo[]  = {KC_DOT,  KC_SLSH, COMBO_END};
 
+const uint16_t PROGMEM hj_combo[] = {
+    KC_H, HRM_J, COMBO_END
+};
+
+const uint16_t PROGMEM jk_combo[] = {
+    HRM_J, HRM_K, COMBO_END
+};
+
 combo_t key_combos[] = {
     [UI_UP]        = COMBO(ui_combo,      KC_UP),
     [IO_PGUP]      = COMBO(io_combo,      KC_PGUP),
@@ -175,4 +186,7 @@ combo_t key_combos[] = {
     [MCOMM_DOWN]   = COMBO(mcomm_combo,   KC_DOWN),
     [COMMDOT_PGDN] = COMBO(commdot_combo, KC_PGDN),
     [DOTSLSH_END]  = COMBO(dotslsh_combo, KC_END),
+
+    [HJ_LEFT]      = COMBO(hj_combo,       KC_LEFT),
+    [JK_RIGHT]     = COMBO(jk_combo,       KC_RIGHT),
 };
