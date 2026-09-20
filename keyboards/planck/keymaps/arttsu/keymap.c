@@ -21,7 +21,6 @@ enum layer_names {
     _RETURN
 };
 
-
 /*
  * Home-row mods
  *
@@ -148,4 +147,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         DF(_BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,            XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
     )
 
+};
+
+enum combos {
+    UI_UP,
+    MCOMM_DOWN,
+    UO_PGUP,
+    MDOT_PGDN,
+};
+
+const uint16_t PROGMEM ui_combo[]    = {KC_U, KC_I,    COMBO_END};
+const uint16_t PROGMEM mcomm_combo[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM uo_combo[]    = {KC_U, KC_O,    COMBO_END};
+const uint16_t PROGMEM mdot_combo[]  = {KC_M, KC_DOT,  COMBO_END};
+
+combo_t key_combos[] = {
+    [UI_UP]      = COMBO(ui_combo,    KC_UP),
+    [MCOMM_DOWN] = COMBO(mcomm_combo, KC_DOWN),
+    [UO_PGUP]    = COMBO(uo_combo,    KC_PGUP),
+    [MDOT_PGDN]  = COMBO(mdot_combo,  KC_PGDN),
 };
