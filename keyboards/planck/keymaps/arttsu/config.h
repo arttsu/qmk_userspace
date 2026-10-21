@@ -1,2 +1,0 @@
-#define COMBO_TERM 35
-#define COMBO_SHOULD_TRIGGER
